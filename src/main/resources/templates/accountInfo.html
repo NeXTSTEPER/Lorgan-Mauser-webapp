@@ -14,9 +14,12 @@
          <ul>
             <li>User Name: <span th:utext="${#request.userPrincipal.name}"></span></li>
             <li>
-               Account Privleges:
+               Account Privileges:
                <ul>
-                  <li th:each="auth : ${userDetails.authorities}" th:utext="${auth.authority}"></li>
+                  <li th:each="auth : ${userDetails.authorities}">
+                     <span th:if="${auth.authority == 'ROLE_EMPLOYEE'}">Standard Account</span>
+                     <span th:if="${auth.authority == 'ROLE_MANAGER'}">Admin Account</span>
+                  </li>
                </ul>
             </li>
          </ul>
