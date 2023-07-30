@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <meta charset="UTF-8">
+      <title>Lorgan-Mauser Metals Inc.</title>
+      <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+      <style>
+        .carousel-container {
+          width: 80%;
+          height: 100%;
+          margin: auto;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .carousel-slide img {
+          max-height: 100%;
+        }
+
+        .carousel-slide {
+          display: none;
+        }
+
+        .carousel-slide.active {
+          display: block;
+        }
+
+        .carousel-nav {
+          background-color: #ccc;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          opacity: 0.7;
+        }
+
+        #prev-slide {
+          left: 10px;
+        }
+
+        #next-slide {
+          right: 10px;
+        }
+
+        .content-div {
+          padding: 15px;  /* Adjust as needed */
+          text-align: center;
+          width: 80%;
+          margin: auto;
+        }
+          .centered-image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      </style>
+      <th:block th:include="/_header"></th:block>
+   </head>
+   <body>
+      <th:block th:include="/_menu"></th:block>
+      <h1>Central Iowa's Essential Metal Supplier</h1>
+      <div style="background-color: #193662; width: 100%; height: 90%;">
+        <div class="carousel-container">
+          <div class="carousel-slide active">
+            <img src="img/lmbanner.png" alt="Image 1">
+          </div>
+          <div class="carousel-slide">
+            <img src="img/racks.png" alt="Image 2">
+          </div>
+          <div class="carousel-slide">
+            <img src="img/IMG_1804.jpeg" alt="Image 3">
+          </div>
+          <button id="prev-slide" class="carousel-nav">&#10094;</button>
+          <button id="next-slide" class="carousel-nav">&#10095;</button>
+        </div>
+
+        <!-- New div with the CSS class -->
+        <div class="content-div">
+          <p>Our combination of on-site inventory, fabrication technology, and impeccable customer service is what makes us Central Iowa's #1 Metal Supply Company </p>
+    
+        </div>
+      </div>
+      
+      <br>
+      <br>
+      <br>
+                 <div class="centered-image">
+        <img src="img/truck.png" alt="Truck Image">
+      </div>
+      <footer id="footer-sub">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8">
+            </div>
+            <div class="col-sm-4">
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <!-- ------------------------------footer sub end---------------------------------- -->
+
+      <footer id="footer-main">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-3">
+                <img src="img/iowawhite.png">
+
+                <h6 class="mt-3">Lorgan-Mauser Metal Solutions Inc.</h6>
+                <h7> Established 1984 </h7>
+                <p>
+                  18th Avenue Indianola, Iowa
+                  +641-758-8898
+                </p>
+            </div>
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-3">
+              <a href="">About Lorgan-Mauser</a>
+              <a href="">News</a>
+              <a href="">Deals!</a>
+              <a href="">Sitemap</a>
+            </div>
+            <div class="col-sm-3">
+              <a href="">Voice of Customer</a>
+              <a href="">Contacts by Branch</a>
+              <a href="">Ethics Reporting</a>
+              <a href="">Careers</a>
+
+              <br><br>
+              <a href="">Business Inquiry</a>
+              <br>
+              <a href="" class="ico"><i class="fab fa-apple fa-2x"></i> App Store</a>
+              <a href="" class="ico"><i class="fab fa-google-play fa-2x"></i> Google Play</a>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-sm-6">
+            <a href="" style="margin-left: 1rem">Privacy Policy | Terms of Use</a>
+          </div>
+        </div>
+      </footer>
+
+      <!-- ------------------------------footer end---------------------------------- -->
+       
+      <th:block th:include="/_footer"></th:block>
+   </body>
+   <script>
+      let currentSlide = 0;
+      const slides = document.querySelectorAll('.carousel-slide');
+      const nextButton = document.querySelector('#next-slide');
+      const prevButton = document.querySelector('#prev-slide');
+
+      function updateCarousel() {
+        slides.forEach((slide, index) => {
+          slide.style.display = index === currentSlide ? 'block' : 'none';
+        });
+      }
+
+      function nextSlide() {
+        currentSlide = (currentSlide + 1) % slides.length;
+        updateCarousel();
+      }
+
+      function prevSlide() {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        updateCarousel();
+      }
+
+      setInterval(nextSlide, 10000); // Change slide every 10 seconds
+
+      nextButton.addEventListener('click', nextSlide);
+      prevButton.addEventListener('click', prevSlide);
+
+      updateCarousel(); // Initial carousel setup
+   </script>
+</html>
