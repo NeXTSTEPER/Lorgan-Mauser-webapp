@@ -5,26 +5,52 @@
       <title>Confirmation</title>
       <link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
       <th:block th:include="/_header"></th:block>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+      function calculateTax(total, taxRate = 0.07) {
+    	    return parseFloat((total * taxRate).toFixed(2));
+    	}
+
+    	function calculateTotalWithTax(total, taxRate = 0.07) {
+    	    const tax = calculateTax(total, taxRate);
+    	    return parseFloat((total + tax).toFixed(2));
+    	}
+
+    	$(document).ready(function() {
+    	    const subtotal = parseFloat($('.subtotal').text());
+    	    const tax = calculateTax(subtotal);
+    	    const total = calculateTotalWithTax(subtotal);
+    	    // Update the UI
+    	    $('#taxTotal').text(tax.toFixed(2));
+    	    $('.total').text(total.toFixed(2));
+    	});
+      </script>
    </head>
    <body>
-      
       <th:block th:include="/_menu"></th:block>
-       
       <div class="page-title">Confirmation</div>
       <div class="customer-info-container">
          <h3>Customer Information:</h3>
          <ul>
-            <li>Name: <span th:utext="${myCart.customerInfo.name}"></span></li>
-            <li>Email: <span th:utext="${myCart.customerInfo.email}"></span></li>
-            <li>Phone: <span th:utext="${myCart.customerInfo.phone}"></span></li>
-            <li>Address: <span th:utext="${myCart.customerInfo.address}"></span></li>
+            <li>Name: <span th:text="${myCart.customerInfo.name}"></span></li>
+            <li>Email: <span th:text="${myCart.customerInfo.email}"></span></li>
+            <li>Phone: <span th:text="${myCart.customerInfo.phone}"></span></li>
+            <li>Address: <span th:text="${myCart.customerInfo.address}"></span></li>
          </ul>
          <h3>Cart Summary:</h3>
          <ul>
-            <li>Quantity: <span th:utext="${myCart.quantityTotal}"></span>$</li>
-            <li>Total:
-               <span class="total"
-                  th:utext="${#numbers.formatDecimal(myCart.amountTotal,3,2,'COMMA')}">  
+            <li>Quantity: <span th:text="${myCart.quantityTotal}"></span></li>
+            <li>Subtotal: 
+               <span class="subtotal"
+                  th:text="${#numbers.formatDecimal(myCart.amountTotal, 1, 2)}">
+               </span>
+            </li>
+            <li>Estimated Tax: 
+               <span id="taxTotal">
+               </span>
+            </li>
+            <li>Total: 
+               <span class="total">
                </span>
             </li>
          </ul>
@@ -49,27 +75,25 @@
                      src="@{|/productImage?code=${cartLineInfo.productInfo.code}|}" />
                </li>
                <li>
-                  Code: <span th:utext="${cartLineInfo.productInfo.code}"></span>
+                  Code: <span th:text="${cartLineInfo.productInfo.code}"></span>
                   <input
                      type="hidden" name="code" th:value="${cartLineInfo.productInfo.code}" />
                </li>
-               <li>Name: <span th:utext="${cartLineInfo.productInfo.name}"></span></li>
-               <li>Price:
+               <li>Name: <span th:text="${cartLineInfo.productInfo.name}"></span></li>
+               <li>Price: $
                   <span class="price"
-                     th:utext="${#numbers.formatDecimal(cartLineInfo.productInfo.price,3,2,'COMMA')}">
+                    th:text="${#numbers.formatDecimal(cartLineInfo.productInfo.price, 1, 2)}">
                   </span>
                </li>
-               <li>Quantity: <span th:utext="${cartLineInfo.quantity}"></span></li>
-               <li>Subtotal:
+               <li>Quantity: <span th:text="${cartLineInfo.quantity}"></span></li>
+               <li>Subtotal: $
                   <span class="subtotal"
-                     th:utext="${#numbers.formatDecimal(cartLineInfo.amount,3,2,'COMMA')}">
+                     th:text="${#numbers.formatDecimal(cartLineInfo.amount, 1, 2)}">
                   </span>
                </li>
             </ul>
          </div>
       </div>
-       
       <th:block th:include="/_footer"></th:block>
-       
    </body>
 </html>
