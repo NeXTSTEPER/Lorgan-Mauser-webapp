@@ -5,9 +5,6 @@ Simple POS type sale website for a metal distribution company built with SpringB
 
 Setup database with the sql file provided
 
-By default two test accounts are created with database setup
+By default a test account is created with database setup
 
-"User" - a standard user account
-"Manager" - an admin account
-
-Both have a password of "123"
+"Manager" - an admin account a password of "123"
